@@ -12,11 +12,26 @@ import cv2
 import pandas as pd
 from copy import deepcopy
 import os
+import argparse
+
+def set_video_paths(input_path, output_path):
+    os.environ['video_path'] = input_path
+    os.environ['video_output_path'] = output_path
+    print(f"video_path set to: {os.environ['video_path']}")
+    print(f"video_output_path set to: {os.environ['video_output_path']}")
+
 
 #os.environ['video_path'] = 'D:\\python\\upwork\\tennis tracking sergej\\28-04-24\\tennis_analysis-main\\input_videos\\video_input2'
 #os.environ['video_output_path'] = 'D:\python\upwork\tennis tracking sergej\28-04-24\tennis_analysis-main\output_videos\sample'
 #os.environ['csv_path_name'] = 'input_videos/video_input8'
 def main():
+    parser = argparse.ArgumentParser(description="Set video paths as environment variables.")
+    parser.add_argument('--video_path', required=True, help="Path to the input video.")
+    parser.add_argument('--video_output_path', required=True, help="Path to the output video.")
+
+    args = parser.parse_args()
+
+    set_video_paths(args.video_path, args.video_output_path)
     # Read Video
     input_video_environment_variable_path = os.getenv('video_path')
     input_video_path = input_video_environment_variable_path+".mp4"
